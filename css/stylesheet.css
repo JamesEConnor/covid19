@@ -166,6 +166,8 @@ div.container {
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    
+    flex-shrink: 0;
 }
 
 #play-pause:hover {
