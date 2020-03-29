@@ -155,7 +155,7 @@ div.container {
 
 #play-pause {
     display: inline-block;
-    background-image: url("/images/play-icon.png");
+    background-image: url("../images/play-icon.png");
     background-position: center center;
     background-size: contain;
     
@@ -174,7 +174,7 @@ div.container {
 }
 
 #play-pause.playing {
-    background-image: url("/images/pause-icon.png");
+    background-image: url("../images/pause-icon.png");
 }
 
 

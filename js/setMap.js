@@ -43,7 +43,7 @@ function setCountyDataDictionary() {
                 allCounties.push("#" + county + "__" + stateCode);
             
             if(countyToName["#" + county + "__" + stateCode] == undefined)
-                countyToName["#" + county + "__" + stateCode] = county + ", " + stateCode;
+                countyToName["#" + county + "__" + stateCode] = splitCommas[1] + ", " + stateCode;
 
             if(dateToCounty[date] == undefined) {
                 dateToCounty[date] = ["#" + county + "__" + stateCode];
