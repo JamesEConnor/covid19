@@ -13,6 +13,9 @@
         <header>
             <h1>United States Covid-19 Tracker</h1>
         </header>
+        <div id="data-attribution">
+            <p>A tool for understanding Covid-19's spread through data from <a href="https://www.github.com/nytimes/covid-19-data" target="_blank">The New York Times</a>.</p>
+        </div>
         
         <div id="map" class="container">
             <h2>Confirmed Cases</h2>
@@ -3169,13 +3172,15 @@
             </svg>
         </div>
         
-        <div id="interactables" class="container">            
+        <div id="interactables" class="container"> 
+            <div id="play-pause"></div>
+            
             <input id="date-slider" type="range" value=0 min=0>
             <div id="date-slider-label"><p>Show Information</p></div>
-            <div id="cases-label" class="show"><p>0 Cases</p></div>
-            <div id="deaths-label" class="show"><p>0 Deaths</p></div>
+            <div id="cases-label" class=""><p>0 Cases</p></div>
+            <div id="deaths-label" class=""><p>0 Deaths</p></div>
             
-            <div id="warning">
+            <div id="warning" class="show">
                 <img src="images/warning-icon.png" alt="warning icon" width="30">
                 <p>There's not enough data for this date.</p>
             </div>

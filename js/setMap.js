@@ -93,6 +93,8 @@ function setCountyDataDictionary() {
     addStatistics();
     
     checkDate = latestDate;
+    
+    $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate - 1000 * 3600 * 24, 'date') + ")")
 }
 
 function getLastDateForCounty(county, date) {  
@@ -145,15 +147,27 @@ function getCountyData() {
 
 getCountyData();
 
+var cancelIncrease = false;
 function increaseCheckDate() {    
     checkDate += 1000 * 3600 * 24;
     checkDate = new Date(checkDate).setHours(0, 0, 0, 0);
     
-    if(checkDate > today.getTime()) {
+    if(checkDate > today.getTime() || cancelIncrease == true) {
+        $("#play-pause").removeClass("playing");
+        
+        cancelIncrease = false;
         return;
     }
     
+    if(checkDate > latestDate) {
+        enableWarning();
+    }
+    
     setCountyDataOnFly();
+    
+    $("#date-slider").prop("value", parseInt($("#date-slider").prop("value")) + 1);
+    
+    updateLabelText();
     
     setTimeout(increaseCheckDate, 100);
 }
