@@ -16,6 +16,9 @@ function updateLabelText() {
     var newDisplayDate = dateConversion(orgDate + ($("#date-slider").val() * 1000 * 3600 * 24), 'date');
                 
     $("#date-slider-label p").text(newDisplayDate);
+    
+    $("#cases-label p").text((datesToTotalCases[checkDate] == undefined ? "0" : datesToTotalCases[checkDate]) + " Cases");
+    $("#deaths-label p").text((datesToTotalDeaths[checkDate] == undefined ? "0" : datesToTotalDeaths[checkDate]) + " Deaths");
 }
 
 function enableWarning() {
@@ -33,10 +36,7 @@ $(document).ready(function() {
         
         updateLabelText();
         
-        if(checkDate < latestDate) {
-            $("#cases-label p").text((datesToTotalCases[checkDate] == undefined ? "0" : datesToTotalCases[checkDate]) + " Cases");
-            $("#deaths-label p").text((datesToTotalDeaths[checkDate] == undefined ? "0" : datesToTotalDeaths[checkDate]) + " Deaths");
-            
+        if(checkDate < latestDate) {            
             $("#warning").removeClass("show");
             $("#cases-label, #deaths-label").addClass("show");
         } else {
@@ -72,7 +72,8 @@ $(document).ready(function() {
     $("#play-pause").click(function() {
         $(this).toggleClass("playing");
         
-        $("#date-slider-label").click();
+        if(!$("#date-slider-label").hasClass("hover"))
+            $("#date-slider-label").click();
         
         if(!$(this).hasClass("playing"))
             cancelIncrease = true;

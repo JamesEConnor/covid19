@@ -157,7 +157,7 @@ div.container {
     display: inline-block;
     background-image: url("../images/play-icon.png");
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
     
     align-self: flex-start;
     
@@ -431,6 +431,11 @@ div.container {
     font-family: "Baloo Thambi 2", cursive;
     font-size: 20pt;
     color: black;
+}
+
+#stats p {
+    margin: 5px 0;
+    font-style: italic;
 }
 
 #table-container {

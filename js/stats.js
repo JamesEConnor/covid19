@@ -5,6 +5,10 @@ function addStatistics() {
         $("#stats table:not(#stickyHeader) tbody").append(countyAdd);
     });
     
+    
+    $("#stats > p").text($("#stats > p").text() + dateConversion(latestDate - 3600 * 24 * 1000, 'date') + ".");
+    
+    
     $("#table-container table").floatThead({
         scrollContainer: function(table) {
             return table.closest("#table-container");
