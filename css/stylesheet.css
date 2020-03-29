@@ -402,3 +402,51 @@ div.container {
     
     padding: 10px;
 }
+
+
+
+
+
+
+
+footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+    background-color: gray;
+    height: 80px;
+    width: 100%;
+    
+    padding: 10px;
+}
+
+footer p {  
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 15pt;
+    color: white;
+    
+    margin-left: 10px;
+}
+
+#social-bar {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+#social-bar a {
+    display: inline-block;
+}
+
+#social-bar a:not(:first-child) {
+    margin-left: 10px;
+}
+
+#social-bar a img {
+    transition: ease 0.2s;
+}
+
+#social-bar a:hover img {
+    transform: scale(1.15);
+}
