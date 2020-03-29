@@ -1,7 +1,15 @@
 var today = new Date();
-var orgDate = new Date("01/18/2020");
+today.setHours(0);
+today.setMinutes(0);
+today.setSeconds(0);
+today.setMilliseconds(0);
+
+var orgDate = new Date(1579305600000);
 console.log(orgDate);
-var difference = Math.ceil((today.getTime() - orgDate.getTime())/(1000 * 3600 * 24));
+var difference = Math.floor((today.getTime() - orgDate.getTime())/(1000 * 3600 * 24));
+
+while(new Date(orgDate.getTime() + (difference * 1000 * 3600 * 24)) > today - 1)
+    difference -= 1;
 
 $("#date-slider").attr("max", difference);
 $("#date-slider").on("input", function() {
@@ -9,7 +17,11 @@ $("#date-slider").on("input", function() {
     
     $("#county-group path").removeClass("level1 level2 level3 level4 level5 level6")
     
-    setCountyData();
+    setCountyDataOnFly();
+}).on("change", function() {
+    checkDate.setTime(orgDate.getTime() + ($(this).val() * 1000 * 3600 * 24));
     
-    console.log($(this).val());
-});
+    $("#county-group path").removeClass("level1 level2 level3 level4 level5 level6")
+    
+    setCountyData();
+})

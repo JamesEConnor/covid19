@@ -21,7 +21,9 @@ h1 {
     
     justify-content: center;
     align-items: center;
-    
+}
+
+#svg2 {
     transform: scale(1.35);
     transform-origin: top center;
 }
