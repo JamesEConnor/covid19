@@ -6,7 +6,7 @@ function addStatistics() {
     });
     
     
-    $("#stats > p").text($("#stats > p").text() + dateConversion(latestDate - 3600 * 24 * 1000, 'date') + ".");
+    $("#stats > p").text($("#stats > p").text() + dateConversion(latestDate, 'date') + ".");
     
     
     $("#table-container table").floatThead({

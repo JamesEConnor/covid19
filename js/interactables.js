@@ -40,10 +40,7 @@ $(document).ready(function() {
             $("#warning").removeClass("show");
             $("#cases-label, #deaths-label").addClass("show");
         } else {
-            $("#warning").addClass("show");
-            $("#cases-label, #deaths-label").removeClass("show");
-            
-            $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate, 'date') + ")")
+            enableWarning();
         }
     }).change(function() {
         if(!$("#date-slider-label").hasClass("hover"))
