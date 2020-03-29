@@ -448,6 +448,10 @@ div.container {
     background-color: white;
 }
 
+#stats table thead tr {
+    border-bottom: solid 1px #e6e6e6;
+}
+
 #stats table thead {
 }
 

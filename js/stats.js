@@ -5,9 +5,13 @@ function addStatistics() {
         $("#stats table:not(#stickyHeader) tbody").append(countyAdd);
     });
     
-    $("#table-container table").floatThead();
+    $("#table-container table").floatThead({
+        scrollContainer: function(table) {
+            return table.closest("#table-container");
+        }
+    });
     
     $(window).resize(function() {
-        $("#table-container table").floatThead();
+        $("#table-container table").floatThead("reflow");
     })
 }
