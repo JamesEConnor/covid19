@@ -1,15 +1,36 @@
 header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: calc(100% - 80px);
-    height: 80px;
+    height: 60px;
     
     padding: 10px 40px 10px 40px;
+    
+    background-color: white;
+    
+    -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
 }
 
 h1 {
     font-family: "Baloo Thambi 2", cursive;
-    font-size: 36pt;
+    font-size: 28pt;
     
     color: black;
+}
+
+
+div.container {
+    margin: 10px;
+    padding: 15px;
+    
+    background-color: white;
+    
+    -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
 }
 
 
@@ -21,6 +42,25 @@ h1 {
     
     justify-content: flex-start;
     align-items: center;
+}
+
+#map h2 {
+    width: 100%;
+    
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 36pt;
+    color: black;
+}
+
+#map h3 {
+    width: 100%;
+    
+    font-family: "Baloo Thambi 2", cursive;
+    font-style: italic;
+    font-size: 18pt;
+    color: black;
+    
+    margin-bottom: 20px;
 }
 
 #svg2 {
@@ -71,9 +111,9 @@ h1 {
 
 #interactables {
     position: relative;
-    width: calc(100% - 40px);
-    margin: 50px 0px;
-    padding: 20px;
+    width: calc(100% - 80px);
+    margin-bottom: 10px;
+    padding: 30px;
     
     display: flex;
     
@@ -82,6 +122,8 @@ h1 {
 }
 
 #date-slider {
+    margin-bottom: 60px;
+    
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
   background: transparent;
@@ -171,22 +213,26 @@ h1 {
 
 #date-slider-label {
     position: absolute;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     
     left: 0;
-    top: 50px;
-    width: 140px;
+    top: 60px;
+    width: 240px;
     padding: 5px;
     height: 1.15em;
     
     border: #A80000 2px solid;
     border-radius: 5px;
     
-    overflow: hidden;
+    -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
     
-    transition: 0.2s ease;
+    overflow: hidden;    
+    transition: 0.2s ease, 0.8s ease left;
 }
 
 #date-slider-label::before {
@@ -208,15 +254,151 @@ h1 {
     color: #A80000;
 }
 
-#date-slider-label:hover {
+#date-slider-label:hover, #date-slider-label.hover {
     transform: scale(1.05);
     cursor: pointer;
 }
 
-#date-slider-label:hover::before {
+#date-slider-label.hover {
+    width: 140px;
+}
+
+#date-slider-label:hover::before, #date-slider-label.hover::before {
     width: 100%;
 }
 
-#date-slider-label:hover p {
+#date-slider-label:hover p, #date-slider-label.hover p {
     color: white;
+}
+
+
+
+#cases-label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    
+    left: 160px;
+    top: 60px;
+    width: 240px;
+    padding: 5px;
+    height: 1.15em;
+    border: 2px transparent solid;
+    
+    transition: opacity ease 0.6s;
+}
+
+#deaths-label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    
+    left: 400px;
+    top: 60px;
+    width: 240px;
+    padding: 5px;
+    height: 1.15em;
+    border: 2px transparent solid;
+    
+    transition: opacity ease 0.6s;
+}
+
+#cases-label.hover.show, #deaths-label.hover.show {
+    opacity: 1;
+}
+
+#cases-label p, #deaths-label p {
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 18pt;
+    color: black;
+}
+
+
+#warning {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+    opacity: 0;
+    
+    left: 200px;
+    top: 48px;
+    width: 480px;
+    padding: 5px;
+    height: 40px;
+    border: 2px FFCC00 solid;
+    border-radius: 5px;
+    
+    background-color: #FFE372;
+    
+    -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    box-shadow: 0 0 2px -1px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+    
+    transition: opacity ease 0.6s;
+}
+
+#warning.hover.show {
+    opacity: 1;
+}
+
+#warning img {
+    margin-right: 10px;
+}
+
+#warning p {
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 14pt;
+    color: black;
+}
+
+
+
+
+
+
+
+#stats h2 {
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 20pt;
+    color: black;
+}
+
+#table-container {
+    height: 500px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+#stats table {
+    width: 100%;
+}
+
+#stats table tr {
+    border-top: solid 1px #e6e6e6;
+    background-color: white;
+}
+
+#stats table thead {
+}
+
+#stats table thead tr:first-of-type th {
+    color: #7e7e7e;
+}
+
+#stats table td, #stats, table th {
+    text-align: left;
+    
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 14pt;
+    color: black;
+    
+    padding: 10px;
 }

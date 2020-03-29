@@ -5,6 +5,13 @@ var text = "";
 var dateCountyToLevel = {};
 var dateToCounty = {};
 var allCounties = [];
+var countyToName = {};
+
+
+var countyToCases = {};
+var countyToDeaths = {};
+var datesToTotalCases = {};
+var datesToTotalDeaths = {};
 
 var breakPoints = [0, 15, 50, 100, 500, 1000];
 
@@ -17,24 +24,48 @@ function setCountyDataDictionary() {
         if(!firstLine) {
             var splitCommas = item.split(",");
 
-            var date = dateConversion(Date.parse(splitCommas[0]), 'date');
+            var date = Date.parse(splitCommas[0]);
+            date = new Date(date).setHours(0, 0, 0, 0);
+            
+            if(date > latestDate)
+                latestDate = date;
+            
             var county = splitCommas[1].replace(".", "\\.").replace(" ", "_").replace("'", "_");
             var state = splitCommas[2];
             var stateCode = abbrState(state, 'abbr');
             var cases = parseInt(splitCommas[4]);
-            var deaths = splitCommas[5];
+            var deaths = parseInt(splitCommas[5]);
 
             if(county == "New York City")
                 county = "New_York";
             
-            if(!allCounties.includes(county))
+            if(!allCounties.includes("#" + county + "__" + stateCode))
                 allCounties.push("#" + county + "__" + stateCode);
+            
+            if(countyToName["#" + county + "__" + stateCode] == undefined)
+                countyToName["#" + county + "__" + stateCode] = county + ", " + stateCode;
 
             if(dateToCounty[date] == undefined) {
                 dateToCounty[date] = ["#" + county + "__" + stateCode];
             } else {
                 dateToCounty[date].push("#" + county + "__" + stateCode);
             }
+            
+            
+            
+            if(datesToTotalCases[date] == undefined) {
+                datesToTotalCases[date] = cases;
+                datesToTotalDeaths[date] = deaths;
+            } else {
+                datesToTotalCases[date] += cases;
+                datesToTotalDeaths[date] += deaths;
+            }                
+            
+            countyToCases["#" + county + "__" + stateCode] = cases;
+            countyToDeaths["#" + county + "__" + stateCode] = deaths;
+            
+            
+            
                 
             var caseLevel = 0;
             if(cases > 0) {
@@ -47,34 +78,35 @@ function setCountyDataDictionary() {
 
             dateCountyToLevel[date + ":#" + county + "__" + stateCode] = "level" + caseLevel;
             
-            //getLastDateForCounty("#" + county + "__" + stateCode, new Date(Date.parse(date) - (1000 * 3600 * 24)));
+            getLastDateForCounty("#" + county + "__" + stateCode, new Date(date - (1000 * 3600 * 24)));
        } else {
            firstLine = false;
        }
     });
         
-    debug = true;
-    console.log(today.getTime() <= orgDate);
-    today.setHours((new Date(orgDate).getHours()));
+    today.setHours(0, 0, 0, 0);
     allCounties.forEach(function(item, index) {
        getLastDateForCounty(item, today);
     });
+    
+    allCounties.sort();    
+    addStatistics();
+    
+    checkDate = latestDate;
 }
 
-var debug = false;
-
-function getLastDateForCounty(county, date) {
-    var d = dateConversion(date.getTime(), 'date');
+function getLastDateForCounty(county, date) {  
+    date = new Date(date.setHours(0, 0, 0, 0));
     
-    if(dateCountyToLevel[d + ":" + county] == undefined) {
+    if(dateCountyToLevel[date.getTime() + ":" + county] == undefined) {        
         if(date.getTime() <= orgDate)
-            dateCountyToLevel[d + ":" + county] = 0;
+            dateCountyToLevel[date.getTime() + ":" + county] = 0;
         else {
-            dateCountyToLevel[d + ":" + county] = getLastDateForCounty(county, new Date(date.getTime() - (1000 * 3600 * 24)));
+            dateCountyToLevel[date.getTime() + ":" + county] = getLastDateForCounty(county, new Date(date.getTime() - (1000 * 3600 * 24)));
         }
     }
     
-    return dateCountyToLevel[d + ":" + county];
+    return dateCountyToLevel[date.getTime() + ":" + county];
 }
 
 function setCountyData() {
@@ -83,7 +115,7 @@ function setCountyData() {
     }
     
     allCounties.forEach(function(item, index) {
-        $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[dateConversion(checkDate, 'date') + ":" + item]);
+        $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[checkDate + ":" + item]);
     });
 }
 
@@ -94,14 +126,13 @@ function setCountyDataOnFly() {
     
     if(dateToCounty[checkDate] != undefined) {
         dateToCounty[checkDate].forEach(function(item, index) {
-            $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[dateConversion(checkDate, 'date') + ":" + item]);
+            $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[checkDate + ":" + item]);
         });
-    } else {
-        console.log("NOPE");
     }
 }
 
 function getCountyData() {
+    
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {        
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
@@ -116,6 +147,7 @@ getCountyData();
 
 function increaseCheckDate() {    
     checkDate += 1000 * 3600 * 24;
+    checkDate = new Date(checkDate).setHours(0, 0, 0, 0);
     
     if(checkDate > today.getTime()) {
         return;

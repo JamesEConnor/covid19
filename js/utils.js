@@ -1,4 +1,4 @@
-$("#map").css("height", $("#svg2").height() * 1.35)
+$("#map").css("height", $("#map h2").height() + $("#map h3").height() + 20 + $("#svg2").height() * 1.35)
 
 
 
@@ -114,10 +114,10 @@ function getBreakPoints(lines) {
 
 
 //convertTo = 'date' to get MM/DD/YYYY, 'epoch' to get milliseconds since Jan. 1970
-function dateConversion(toConvert, convertTo) {
+function dateConversion(toConvert, convertTo) {    
     if(convertTo == 'date') {
         var d = new Date(toConvert);
-        var month = d.getMonth().toString();
+        var month = (d.getMonth() + 1).toString();
         month = month.length == 1 ? "0" + month : month;
         var day = d.getDate().toString();
         day = day.length == 1 ? "0" + day : day;
