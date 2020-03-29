@@ -1,5 +1,5 @@
-var orgDate = new Date(1579305600000);
-var checkDate = new Date(1579305600000);
+var orgDate = Date.UTC(2020, 0, 18, 0, 0, 0);
+var checkDate = Date.UTC(2020, 0, 18, 0, 0, 0);
 var text = "";
 
 var dateCountyToLevel = {};
@@ -17,7 +17,7 @@ function setCountyDataDictionary() {
         if(!firstLine) {
             var splitCommas = item.split(",");
 
-            var date = Date.parse(splitCommas[0]);
+            var date = dateConversion(Date.parse(splitCommas[0]), 'date');
             var county = splitCommas[1].replace(".", "\\.").replace(" ", "_").replace("'", "_");
             var state = splitCommas[2];
             var stateCode = abbrState(state, 'abbr');
@@ -47,30 +47,34 @@ function setCountyDataDictionary() {
 
             dateCountyToLevel[date + ":#" + county + "__" + stateCode] = "level" + caseLevel;
             
-            getLastDateForCounty("#" + county + "__" + stateCode, new Date(date - (1000 * 3600 * 24)));
+            //getLastDateForCounty("#" + county + "__" + stateCode, new Date(Date.parse(date) - (1000 * 3600 * 24)));
        } else {
            firstLine = false;
        }
     });
-    
-    today.setHours(checkDate.getHours());   
-    
-    console.log(today <= orgDate);
+        
+    debug = true;
+    console.log(today.getTime() <= orgDate);
+    today.setHours((new Date(orgDate).getHours()));
     allCounties.forEach(function(item, index) {
        getLastDateForCounty(item, today);
     });
 }
 
+var debug = false;
+
 function getLastDateForCounty(county, date) {
-    if(dateCountyToLevel[date.getTime() + ":" + county] == undefined) {
-        if(date <= orgDate)
-            dateCountyToLevel[date.getTime() + ":" + county] = 0;
+    var d = dateConversion(date.getTime(), 'date');
+    
+    if(dateCountyToLevel[d + ":" + county] == undefined) {
+        if(date.getTime() <= orgDate)
+            dateCountyToLevel[d + ":" + county] = 0;
         else {
-            dateCountyToLevel[date.getTime() + ":" + county] = getLastDateForCounty(county, new Date(date.getTime() - (1000 * 3600 * 24)));
+            dateCountyToLevel[d + ":" + county] = getLastDateForCounty(county, new Date(date.getTime() - (1000 * 3600 * 24)));
         }
     }
     
-    return dateCountyToLevel[date.getTime() + ":" + county];
+    return dateCountyToLevel[d + ":" + county];
 }
 
 function setCountyData() {
@@ -79,7 +83,7 @@ function setCountyData() {
     }
     
     allCounties.forEach(function(item, index) {
-        $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[checkDate.getTime() + ":" + item]);
+        $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[dateConversion(checkDate, 'date') + ":" + item]);
     });
 }
 
@@ -88,9 +92,9 @@ function setCountyDataOnFly() {
         setCountyDataDictionary();
     }
     
-    if(dateToCounty[checkDate.getTime()] != undefined) {
-        dateToCounty[checkDate.getTime()].forEach(function(item, index) {
-            $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[checkDate.getTime() + ":" + item]);
+    if(dateToCounty[checkDate] != undefined) {
+        dateToCounty[checkDate].forEach(function(item, index) {
+            $(item).removeClass("level1 level2 level3 level4 level5 level6").addClass(dateCountyToLevel[dateConversion(checkDate, 'date') + ":" + item]);
         });
     } else {
         console.log("NOPE");
@@ -111,9 +115,9 @@ function getCountyData() {
 getCountyData();
 
 function increaseCheckDate() {    
-    checkDate.setTime(checkDate.getTime() + (1000 * 3600 * 24));
+    checkDate += 1000 * 3600 * 24;
     
-    if(checkDate > today) {
+    if(checkDate > today.getTime()) {
         return;
     }
     

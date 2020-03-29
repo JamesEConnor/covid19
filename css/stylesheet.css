@@ -19,7 +19,7 @@ h1 {
     display: flex;
     flex-direction: column;
     
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -62,4 +62,161 @@ h1 {
 
 #county-group path:hover {
     fill: green !important;
+}
+
+
+
+
+
+
+#interactables {
+    position: relative;
+    width: calc(100% - 40px);
+    margin: 50px 0px;
+    padding: 20px;
+    
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+#date-slider {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent;
+}
+
+#date-slider::-webkit-slider-thumb {
+    position: relative;
+    -webkit-appearance: none;
+    border: 0px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffaca6;
+    cursor: pointer;
+    margin-top: -18px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+}
+
+#date-slider::-moz-range-thumb {
+    position: relative;
+    border: 0px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffaca6;
+    cursor: pointer;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+}
+
+#date-slider::-ms-thumb {
+    position: relative;
+    border: 0px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffaca6;
+    cursor: pointer;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+}
+
+#date-slider:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+#date-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #000000;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+
+#date-slider::-moz-range-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #000000;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+
+#date-slider::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+#date-slider::-ms-fill-lower {
+    background: #000000;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+
+#date-slider::-ms-fill-upper {
+    background: #000000;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+
+
+#date-slider-label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    left: 0;
+    top: 50px;
+    width: 140px;
+    padding: 5px;
+    height: 1.15em;
+    
+    border: #A80000 2px solid;
+    border-radius: 5px;
+    
+    overflow: hidden;
+    
+    transition: 0.2s ease;
+}
+
+#date-slider-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 100%;
+    
+    background-color: #A80000;
+    
+    transition: 0.2s ease;
+}
+
+#date-slider-label p {
+    z-index: 1;
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 18pt;
+    color: #A80000;
+}
+
+#date-slider-label:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#date-slider-label:hover::before {
+    width: 100%;
+}
+
+#date-slider-label:hover p {
+    color: white;
 }
