@@ -138,6 +138,32 @@ div.container {
 
 
 
+#scale table {
+    width: 100%;
+    height: 40px;
+}
+
+#scale thead {
+    height: 10%;
+    margin-bottom: 10px;
+}
+
+#scale thead th {
+    width: calc(100%/7);
+}
+
+#scale td {
+    font-family: "Baloo Thambi 2", cursive;
+    font-size: 14pt;
+    
+    color: black;
+}
+
+
+
+
+
+
 
 
 #interactables {

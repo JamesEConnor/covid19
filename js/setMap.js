@@ -14,6 +14,7 @@ var datesToTotalCases = {};
 var datesToTotalDeaths = {};
 
 var breakPoints = [0, 15, 50, 100, 500, 1000];
+var colors = ["#f2f2f2", "#FFBABA", "#FF6464", "#E80000", "#A80000", "#660000", "#3c0000"]
 
 function setCountyDataDictionary() {
     var lines = text.split("\n");
@@ -95,6 +96,14 @@ function setCountyDataDictionary() {
     checkDate = latestDate;
     
     $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate - 1000 * 3600 * 24, 'date') + ")")
+    
+    
+    
+    
+    
+    colors.forEach(function(item, index) {
+        $("#scale thead tr").append("<th style='background-color: " + item + ";'></th>")
+    });
 }
 
 function getLastDateForCounty(county, date) {  
