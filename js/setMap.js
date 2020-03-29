@@ -95,7 +95,7 @@ function setCountyDataDictionary() {
     
     checkDate = latestDate;
     
-    $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate - 1000 * 3600 * 24, 'date') + ")")
+    $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate, 'date') + ")")
     
     
     

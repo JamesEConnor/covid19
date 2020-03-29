@@ -25,7 +25,7 @@ function enableWarning() {
     $("#warning").addClass("show");
     $("#cases-label, #deaths-label").removeClass("show");
 
-    $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate - 1000 * 3600 * 24, 'date') + ")")
+    $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate, 'date') + ")")
 }
 
 $(document).ready(function() {    
@@ -36,14 +36,14 @@ $(document).ready(function() {
         
         updateLabelText();
         
-        if(checkDate < latestDate) {            
+        if(checkDate <= latestDate) {            
             $("#warning").removeClass("show");
             $("#cases-label, #deaths-label").addClass("show");
         } else {
             $("#warning").addClass("show");
             $("#cases-label, #deaths-label").removeClass("show");
             
-            $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate - 1000 * 3600 * 24, 'date') + ")")
+            $("#warning p").text("There's not enough data for this date. (Latest date: " + dateConversion(latestDate, 'date') + ")")
         }
     }).change(function() {
         if(!$("#date-slider-label").hasClass("hover"))
